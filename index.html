@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Now</title>
+
+  <!-- Google Font & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Top-bar controls -->
+  <header>
+    <button id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+      <span class="material-symbols-outlined">light_mode</span>
+    </button>
+    <button id="unitToggle" aria-label="Switch units" title="Switch units">
+      <span class="material-symbols-outlined">thermostat</span>
+    </button>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <!-- Search sheet -->
+    <section id="searchSheet" class="sheet">
+      <div class="input-wrap">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" id="cityInput" placeholder="Search city…" autocomplete="off"/>
+        <button id="locateBtn" aria-label="Use my location" title="My location">
+          <span class="material-symbols-outlined">my_location</span>
+        </button>
+      </div>
+      <ul id="suggestions" class="suggestions hidden"></ul>
+    </section>
+
+    <!-- Loader skeleton -->
+    <section id="loader" class="hidden">
+      <div class="skeleton card"></div>
+    </section>
+
+    <!-- Current weather -->
+    <section id="currentCard" class="glass card hidden">
+      <div class="main">
+        <img id="weatherIcon" alt="Weather icon"/>
+        <div>
+          <h2 id="cityCountry"></h2>
+          <span id="temperature" class="temp"></span>
+          <p id="description"></p>
+        </div>
+      </div>
+
+      <div class="details">
+        <div><span>Humidity</span><strong id="humidity"></strong></div>
+        <div><span>Pressure</span><strong id="pressure"></strong></div>
+        <div><span>Wind</span><strong id="windSpeed"></strong></div>
+        <div><span>UVI</span><strong id="uvi"></strong></div>
+        <div><span>Sunrise</span><strong id="sunrise"></strong></div>
+        <div><span>Sunset</span><strong id="sunset"></strong></div>
+      </div>
+
+      <button id="toggleFav" class="ghost">
+        <span class="material-symbols-outlined">star</span>
+        <span id="favLabel">Favorite</span>
+      </button>
+    </section>
+
+    <!-- Forecast -->
+    <section id="forecastSection" class="hidden">
+      <h3>7-Day Forecast</h3>
+      <div id="forecastList" class="forecast-list"></div>
+    </section>
+  </main>
+
+  <!-- Bottom-sheet toggler -->
+  <button id="openSearch" class="fab">
+    <span class="material-symbols-outlined">search</span>
+  </button>
+
+  <!-- Side drawer -->
+  <aside id="drawer" class="drawer">
+    <header>
+      <h3>Favorites & History</h3>
+      <button id="closeDrawer" aria-label="Close drawer">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </header>
+
+    <section>
+      <h4>Favorites</h4>
+      <ul id="favoritesList"></ul>
+
+      <h4>Recent</h4>
+      <ul id="historyList"></ul>
+    </section>
+  </aside>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
