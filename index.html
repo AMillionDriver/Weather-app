@@ -3,55 +3,53 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Weather Now</title>
+  <title>Weather 3.0 Ultimate</title>
 
-  <!-- Google Font & Icons -->
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- Top-bar controls -->
+  <!-- Header -->
   <header>
-    <button id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
-      <span class="material-symbols-outlined">light_mode</span>
-    </button>
-    <button id="unitToggle" aria-label="Switch units" title="Switch units">
-      <span class="material-symbols-outlined">thermostat</span>
-    </button>
+    <button id="themeToggle" aria-label="Toggle theme"><span class="material-symbols-outlined">light_mode</span></button>
+    <button id="unitToggle" aria-label="Toggle units"><span class="material-symbols-outlined">thermostat</span></button>
+    <button id="openDrawer" aria-label="Favorites"><span class="material-symbols-outlined">menu</span></button>
   </header>
 
-  <!-- MAIN -->
   <main>
-    <!-- Search sheet -->
-    <section id="searchSheet" class="sheet">
+    <!-- Search & Auto-complete -->
+    <section id="searchBar">
       <div class="input-wrap">
         <span class="material-symbols-outlined">search</span>
-        <input type="text" id="cityInput" placeholder="Search city…" autocomplete="off"/>
-        <button id="locateBtn" aria-label="Use my location" title="My location">
-          <span class="material-symbols-outlined">my_location</span>
-        </button>
+        <input id="cityInput" type="text" placeholder="Search city…" autocomplete="off"/>
+        <button id="locateBtn" aria-label="My location"><span class="material-symbols-outlined">my_location</span></button>
       </div>
       <ul id="suggestions" class="suggestions hidden"></ul>
     </section>
 
-    <!-- Loader skeleton -->
-    <section id="loader" class="hidden">
-      <div class="skeleton card"></div>
-    </section>
+    <!-- Loader -->
+    <section id="loader" class="hidden"><div class="skeleton card"></div></section>
 
-    <!-- Current weather -->
+    <!-- Current Weather -->
     <section id="currentCard" class="glass card hidden">
       <div class="main">
-        <img id="weatherIcon" alt="Weather icon"/>
+        <img id="weatherIcon" alt="icon"/>
         <div>
           <h2 id="cityCountry"></h2>
           <span id="temperature" class="temp"></span>
           <p id="description"></p>
         </div>
       </div>
-
       <div class="details">
         <div><span>Humidity</span><strong id="humidity"></strong></div>
         <div><span>Pressure</span><strong id="pressure"></strong></div>
@@ -59,39 +57,55 @@
         <div><span>UVI</span><strong id="uvi"></strong></div>
         <div><span>Sunrise</span><strong id="sunrise"></strong></div>
         <div><span>Sunset</span><strong id="sunset"></strong></div>
+        <div><span>AQI</span><strong id="aqi"></strong></div>
       </div>
-
       <button id="toggleFav" class="ghost">
-        <span class="material-symbols-outlined">star</span>
+        <span class="material-symbols-outlined">star_outline</span>
         <span id="favLabel">Favorite</span>
       </button>
     </section>
 
-    <!-- Forecast -->
+    <!-- 7-Day Forecast Cards -->
     <section id="forecastSection" class="hidden">
       <h3>7-Day Forecast</h3>
       <div id="forecastList" class="forecast-list"></div>
     </section>
+
+    <!-- Chart -->
+    <section id="chartSection" class="hidden">
+      <h3>Temperature Trend</h3>
+      <canvas id="tempChart" height="120"></canvas>
+    </section>
+
+    <!-- Interactive Map -->
+    <section id="mapSection" class="hidden">
+      <h3>Weather Map</h3>
+      <div id="map"></div>
+      <div class="map-controls">
+        <button data-layer="clouds_new">Clouds</button>
+        <button data-layer="precipitation_new">Rain</button>
+        <button data-layer="wind_new">Wind</button>
+        <button data-layer="temp_new">Temperature</button>
+      </div>
+    </section>
+
+    <!-- Share & Embed -->
+    <section id="shareSection" class="glass card hidden">
+      <h3>Share</h3>
+      <button id="shareBtn"><span class="material-symbols-outlined">share</span> Share Weather</button>
+      <textarea id="embedCode" readonly></textarea>
+    </section>
   </main>
 
-  <!-- Bottom-sheet toggler -->
-  <button id="openSearch" class="fab">
-    <span class="material-symbols-outlined">search</span>
-  </button>
-
-  <!-- Side drawer -->
+  <!-- Drawer -->
   <aside id="drawer" class="drawer">
     <header>
       <h3>Favorites & History</h3>
-      <button id="closeDrawer" aria-label="Close drawer">
-        <span class="material-symbols-outlined">close</span>
-      </button>
+      <button id="closeDrawer"><span class="material-symbols-outlined">close</span></button>
     </header>
-
     <section>
       <h4>Favorites</h4>
       <ul id="favoritesList"></ul>
-
       <h4>Recent</h4>
       <ul id="historyList"></ul>
     </section>
@@ -100,6 +114,8 @@
   <!-- Toast -->
   <div id="toast" class="toast hidden"></div>
 
+  <!-- Scripts -->
   <script src="script.js"></script>
 </body>
-</html>
+    </html>
+  
